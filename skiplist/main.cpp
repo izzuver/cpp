@@ -1,14 +1,14 @@
 #include <algorithm>
 #include <array>
-#include <cassert>
-#include <chrono>
+#include <cassert> //b
+#include <chrono> //b
 #include <cstddef>
-#include <cstdint>
+#include <cstdint> //b
 #include <functional>
 #include <iostream>
 #include <iterator>
-#include <list>
-#include <numeric>
+#include <list> //t
+#include <numeric> //t, b
 #include <random>
 #include <string>
 #include <type_traits>
@@ -407,7 +407,6 @@ public:
         return const_iterator(upper_bound_node(key), this);
     }
 
-    // Важно: для неверных итераторов поведение не определено.
     iterator erase(iterator pos) {
         NodeBase* target = pos.node_;
         NodeBase* next_node = target->next[0];
@@ -437,8 +436,6 @@ public:
 
         return iterator(next_node, this);
     }
-
-    // Важно: для неверных диапазонов поведение не определено.
     iterator erase(iterator first, iterator last) {
         while (first != last) {
             first = erase(first);
@@ -446,7 +443,6 @@ public:
         return last;
     }
 
-    // Доп. удобная перегрузка
     size_type erase(const T& key) {
         iterator it = find(key);
         if (it == end()) {
@@ -521,10 +517,6 @@ template <typename T, typename Compare>
 void swap(SkipList<T, Compare>& lhs, SkipList<T, Compare>& rhs) {
     lhs.swap(rhs);
 }
-
-/* =========================================================
-   Отладка и тесты
-   ========================================================= */
 
 template <typename T, typename Compare>
 void print_skiplist(const SkipList<T, Compare>& list, const std::string& name) {
